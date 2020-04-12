@@ -37,9 +37,12 @@ class AuthLoading extends React.Component<Props, {}> {
     const { navigation } = this.props;
     const userToken = await AsyncStorage.getItem("userToken");
     const userId = await AsyncStorage.getItem("userId");
+    const username = await AsyncStorage.getItem("username");
     global.AUTH_TOKEN = userToken;
     global.USER_ID = userId;
-    
+    global.USERNAME = username;
+    console.log("global token ")
+    console.log(global.AUTH_TOKEN,"GLOBAL TOKEN")
     // axios.defaults.headers['Authorization'] = `Bearer ${global.AUTH_TOKEN}`;
 
     if(userToken) {

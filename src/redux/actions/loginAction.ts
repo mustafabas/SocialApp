@@ -60,7 +60,7 @@ export function LoginWithPhone(username: string,password : string) {
         dispatch(loading(false));
 
         if(res.data.isSuccess) {
-          AsyncStorage.multiSet([["userToken",res.data.result.token],["userId",res.data.result.userId.toString()]]).then(()=> {
+          AsyncStorage.multiSet([["userToken",res.data.result.token],["userId",res.data.result.userId.toString()],["username",username]]).then(()=> {
 
           NavigationService.navigate('AuthLoading', {});
           console.log("girdii")

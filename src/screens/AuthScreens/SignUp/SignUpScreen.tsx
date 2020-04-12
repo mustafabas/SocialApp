@@ -4,7 +4,8 @@ import {
   Text,
   KeyboardAvoidingView,
   ScrollView,
-  Platform
+  Platform,
+  Image
 } from "react-native";
 import { NavigationScreenProp, NavigationState, SafeAreaView } from "react-navigation";
 import { Formik } from "formik";
@@ -17,7 +18,7 @@ import { strings } from "../../../constants/Localizations";
 import { showMessage } from "react-native-flash-message";
 import { fonts, colors, sizes } from "../../../constants";
 import { TextInputMask } from 'react-native-masked-text'
-import { Icon } from "native-base";
+import { Icon, Spinner, ActionSheet } from "native-base";
 import PhoneInput from 'react-native-phone-input'
 
 import CountryPicker from 'react-native-country-picker-modal'
@@ -25,12 +26,17 @@ import { connect } from "react-redux";
 import { SignUp, UserSignUp } from "../../../redux/actions/SignupAction";
 import { AppState } from "../../../redux/store";
 import { showSimpleMessage } from "../../../components/showMessage";
+import { TouchableOpacity } from "react-native-gesture-handler";
+// import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 // import { TextInputPhone } from "../../../components/TextInputPhone";
+import ImageResizer from 'react-native-image-resizer';
 
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>;
   SignUp: (user: UserSignUp) => void;
+  loading : boolean;
 }
 interface userData {
   username: string;
@@ -159,6 +165,95 @@ class SignUpScreen extends Component<Props, State> {
     )
   }
 
+
+  renderInside() {
+    if(this.state.loadingImage) {
+      return (
+        <Spinner color={colors.icon} size="small" />
+      )
+ 
+    }else if (this.state.avatarSource) {
+       return(
+         <Image source={this.state.avatarSource} style={{flex:1,width:100,height:100,borderRadius:50}} width={100} height={100}  /> 
+       )
+    } else {
+    return(
+    <Icon name="ios-add" style={{fontSize:30,color:colors.inputIcon,alignSelf:'center'}} />)}
+   }
+ 
+   renderActionSheet() {
+    var BUTTONS = [strings.takePhoto, strings.chooseFromLibrary,strings.cancel];
+var CANCEL_INDEX = 2;
+
+      ActionSheet.show(
+        {
+          options: BUTTONS,
+          cancelButtonIndex: CANCEL_INDEX,
+          // destructiveButtonIndex: DESTRUCTIVE_INDEX,
+          title: strings.selectPhoto
+        },
+        buttonIndex => {
+         
+
+          if(buttonIndex === 0) {
+            this.setState({loadingImage : true});
+             ImagePicker.openCamera({
+              width: 300,
+              height: 300,
+              cropping: true,
+            }).then(image => {
+
+              ImageResizer.createResizedImage(image.path, 300, 300, 'JPEG',100)
+  .then(response => {
+    // response.uri is the URI of the new image that can now be displayed, uploaded...
+    // response.path is the path of the new image
+    // response.name is the name of the new image with the extension
+    // response.size is the size of the new image
+    console.log(response.size,"size")
+
+    this.setState({avatarSource :{uri: response.uri, width: 300, height: 300},loadingImage :false},()=>console.log(image))
+  })
+  .catch(err => {
+    // Oops, something went wrong. Check that the filename is correct and
+    // inspect err to get more details.
+    this.setState({loadingImage : false});
+  });
+             
+            }).catch(e=> {
+              this.setState({loadingImage : false});
+
+           });;
+          }else if (buttonIndex === 1) {
+            this.setState({loadingImage : true});
+              ImagePicker.openPicker({
+              width: 300,
+              height: 300,
+              cropping: true
+            }).then(image => {
+              ImageResizer.createResizedImage(image.path, 300, 300, 'JPEG',100)
+  .then(response => {
+    // response.uri is the URI of the new image that can now be displayed, uploaded...
+    // response.path is the path of the new image
+    // response.name is the name of the new image with the extension
+    // response.size is the size of the new image
+    console.log(response.size,"size")
+
+    this.setState({avatarSource :{uri: response.uri, width: 300, height: 300},loadingImage :false},()=>console.log(image))
+  })
+  .catch(err => {
+    // Oops, something went wrong. Check that the filename is correct and
+    // inspect err to get more details.
+    this.setState({loadingImage : false});
+  });
+            }).catch(e=> {
+               this.setState({loadingImage : false});
+
+            });
+          }
+        }
+      )}
+      
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -168,7 +263,20 @@ class SignUpScreen extends Component<Props, State> {
           <ScrollView bounces={false}>
             <View style={styles.headStyle}>
               <Text style={styles.headText}>{strings.SignUp}</Text>
-
+              <TouchableOpacity  
+    onPress={ ()=> this.renderActionSheet()}
+    style={{width:100,height:100,backgroundColor:colors.borderColorWhiter,marginTop:20,borderRadius:50,justifyContent:'center',alignSelf:'center',marginBottom:5,
+    shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.12,
+        shadowRadius: 2.46,
+        elevation: 9,}} >
+     
+       {this.renderInside()}
+    </TouchableOpacity>
             </View>
             <Formik
 
@@ -303,7 +411,7 @@ class SignUpScreen extends Component<Props, State> {
                       }
 
 
-                      <Button text={strings.finish} onPress={props.handleSubmit} />
+                      <Button loading={this.props.loading} text={strings.finish} onPress={props.handleSubmit} />
 
                     </View>
                   </View>

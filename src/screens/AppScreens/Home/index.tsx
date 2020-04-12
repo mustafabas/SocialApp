@@ -105,9 +105,9 @@ class Home extends Component<Props, State> {
     <Text style={{fontFamily:fonts.primary,color:colors.textColorLigther,fontSize:sizes.small}}>{this.convertToDate(item.created_date)}</Text>
         </View>
         </View>
-        <View style={{marginTop:-5,opacity:.2}}>
+        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Message')} style={{marginTop:-5,opacity:.2}}>
           <Icon style={{color:colors.textColorLigther}} name="ios-chatbubbles" />
-        </View>
+        </TouchableOpacity>
 
         </View>
         <View>
@@ -143,7 +143,7 @@ class Home extends Component<Props, State> {
   render() {
     return (
       <View style={styles.container}>
-         <ScrollView>
+         <ScrollView  >
         {this.renderContent()}
 
          </ScrollView>

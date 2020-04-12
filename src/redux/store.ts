@@ -8,6 +8,7 @@ import LoginReducers from "./reducers/LoginReducers";
 import SignUpReducers from "./reducers/SignUpReducers";
 import locationReducers from "./reducers/locationReducers";
 import postReducers from "./reducers/postReducers";
+import messageReducers from "./reducers/messageReducers";
 const persistConfig = {
   key: "root",
   storage: AsyncStorage
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
  login : LoginReducers,
  signUp : SignUpReducers,
  location : locationReducers,
- posts : postReducers
+ posts : postReducers,
+ message : messageReducers
 })
 
 

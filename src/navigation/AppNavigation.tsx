@@ -23,6 +23,7 @@ import navigationTopBar from "../screens/AppScreens/Group/navigationTopBar";
 import GroupInfoScreen from "../screens/AppScreens/Group/GroupInfoScreen";
 import NotificationScreen from "../screens/AppScreens/Notification/NotificationScreen";
 import createPostScreen from "../screens/AppScreens/Home/createPostScreen";
+import ProfilePhotoScreen from "../screens/AuthScreens/SignUp/ProfilePhotoScreen";
 
 
 const MainStack = createStackNavigator(
@@ -61,10 +62,11 @@ const MessageStack = createStackNavigator(
 const AuthStack = createStackNavigator(
   {
     Login: { screen: Login },
-    SignUp : SignUpScreen
+    SignUp : SignUpScreen,
+    ProfilePhoto : ProfilePhotoScreen
   },
   {
-    initialRouteName: "Login",
+    initialRouteName: "ProfilePhoto",
     headerMode: "none"
   }
 );
@@ -75,13 +77,13 @@ const NotificationStack = createStackNavigator({
 
 const mainBottomTab = createBottomTabNavigator({
   MainStack : MainStack,
-  MainStack1 : MessageStack,
+  // MainStack1 : MessageStack,
   navigationTopBar : navigationTopBar,
   Notification : NotificationStack
 
 },
 {
-
+  keyboardHidesNavigationBar: false,
   defaultNavigationOptions: ({ navigation }) => ({
 
     tabBarIcon: ({ focused, horizontal, tintColor }) => {
@@ -113,7 +115,7 @@ const mainBottomTab = createBottomTabNavigator({
       // You can return any component that you like here!
       return <Icon name={iconName} type="Entypo" style={{color:tintColor}}  color={tintColor} />;
     },
-
+  
     
   }),
   tabBarOptions: {

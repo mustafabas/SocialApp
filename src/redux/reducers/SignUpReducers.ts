@@ -1,12 +1,14 @@
-import {  SIGNUP_LOADING } from "../../constants/actionConstants";
+import {  SIGNUP_LOADING, PROFIL_PHOTO_LOADING } from "../../constants/actionConstants";
 import { Action } from "./LoginReducers";
 
 interface State {
   loading: boolean
+  loadingProfilePhoto:boolean;
 }
 
 const intialState = {
-  loading:false
+  loading:false,
+  loadingProfilePhoto : false
 };
 
 export default (state: State = intialState, action: Action) => {
@@ -16,6 +18,11 @@ export default (state: State = intialState, action: Action) => {
         ...state,
         loading:action.payload
       };
+      case PROFIL_PHOTO_LOADING:
+        return {
+          ...state,
+          loadingProfilePhoto: action.payload
+        }
     default:
       return state;
   }

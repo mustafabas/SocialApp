@@ -34,7 +34,7 @@ export function createPost(lat : number , long :number ,title: string) {
             latitude: lat,
             longitude: long,
             title: title,
-            userId: "ASDASDASD"
+            userId: global.USER_ID
         }).then((res) => {
             console.log(res)
             dispatch(loadingCreatePost(false))

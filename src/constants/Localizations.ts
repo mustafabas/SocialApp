@@ -37,6 +37,12 @@ export const strings = new LocalizedStrings({
     createPostUnSucceed : "Post did not created, you can try again later",
     createPostErrorNull : "This area can not be null",
     createPostErrorMin : "This area contains minimum 3 characters",
+    takePhoto : "Take Photo...",
+    selectPhoto : "Select Photo",
+    chooseFromLibrary : "Choose from Library...",
+    cancel : "Cancel",
+    ProfilePhoto : "Profile Photo",
+    ProfilPhotoNullErr : "Please upload a profile photo to continue"
  },
  en:{
     phoneNumber : "Phone Number",
@@ -71,6 +77,12 @@ export const strings = new LocalizedStrings({
     createPostUnSucceed : "Post did not created, you can try again later",
     createPostErrorNull : "This area can not be null",
     createPostErrorMin : "This area contains minimum 3 characters",
+    takePhoto : "Take Photo...",
+    selectPhoto : "Select Photo",
+    chooseFromLibrary : "Choose from Library...",
+    cancel : "Cancel",
+    ProfilePhoto : "Profile Photo", 
+    ProfilPhotoNullErr : "Please upload a profile photo to continue"
  },
  tr: {
     phoneNumber : "Telefon Numarası",
@@ -105,6 +117,14 @@ export const strings = new LocalizedStrings({
     createPostUnSucceed : "Gönderiniz oluşturalamadı. Lütfen sonra tekrar deneyin.",
     createPostErrorNull : "Bu alan boş olamaz",
     createPostErrorMin : "Bu alan en az 3 karater olmalı",
+    takePhoto : "Fotoğraf çek...",
+    selectPhoto : "Fotoğraf seç",
+    chooseFromLibrary : "Kütüphaneden seç...",
+    cancel : "İptal",
+    ProfilePhoto : "Profil Fotoğrafı",
+    ProfilPhotoNullErr : "Lütfen devam etmek için profil fotoğrafı yükleyiniz"
+
+
 
  }
 });
